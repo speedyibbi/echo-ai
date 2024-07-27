@@ -1,16 +1,20 @@
 import 'dotenv/config';
 
 import Koa from 'koa';
+import serve from 'koa-static';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
+import { join } from 'path';
 
 const app = new Koa();
 const server = createServer(app.callback());
 const io = new Server(server);
 
+app.use(serve(join(__dirname, 'public')));
+
 app.use(async (ctx) => {
 	if (ctx.path === '/' && ctx.method === 'GET') {
-		ctx.body = 'Hello World with Koa and Socket.io!';
+		ctx.body = 'Echo AI Chatbot';
 	}
 });
 

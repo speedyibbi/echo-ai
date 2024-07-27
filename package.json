@@ -4,7 +4,8 @@
 	"description": "AI Chatbot",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "npx tsc",
+		"post-build": "copyfiles -u 1 src/public/*.html src/public/*.css src/public/favicon.svg dist",
+		"build": "npx tsc && npm run post-build",
 		"start": "npm run build && node dist/index.js",
 		"dev": "nodemon src/index.ts"
 	},
@@ -21,6 +22,8 @@
 	"devDependencies": {
 		"@swc/core": "^1.7.1",
 		"@types/koa": "^2.15.0",
+		"@types/koa-static": "^4.0.4",
+		"copyfiles": "^2.4.1",
 		"nodemon": "^3.1.4",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.5.4"
@@ -28,6 +31,7 @@
 	"dependencies": {
 		"dotenv": "^16.4.5",
 		"koa": "^2.15.3",
+		"koa-static": "^5.0.0",
 		"socket.io": "^4.7.5"
 	}
 }

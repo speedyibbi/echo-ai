@@ -1,0 +1,91 @@
+:root {
+	--foreground: #000;
+	--background: #fff;
+	--accent: #2f88ff;
+	--muted: #000000bf;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--foreground: #fff;
+		--background: #000;
+		--muted: #ffffffbf;
+	}
+}
+
+::-webkit-scrollbar {
+	width: 2px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--foreground);
+}
+
+html,
+body,
+* {
+	margin: 0;
+	padding: 0;
+	text-wrap: nowrap;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	color: var(--foreground);
+	background-color: var(--background);
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+main {
+	width: clamp(300px, 100vw, 840px);
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 10vh 0 2.5vh 0;
+	display: flex;
+	flex-direction: column;
+	place-content: start;
+	place-items: stretch;
+	gap: 50px;
+}
+
+.messages-container {
+	flex-grow: 1;
+}
+
+form {
+	width: 100%;
+	display: flex;
+	place-content: center;
+}
+
+textarea {
+	width: 90%;
+	min-width: 300px;
+	height: min-content;
+	padding: 15px 25px;
+	color: var(--foreground);
+	font-size: 18px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	letter-spacing: -0.05em;
+	border: 2px solid var(--foreground);
+	border-radius: 8px;
+	background-color: transparent;
+	outline: none;
+	resize: none;
+	text-wrap: wrap;
+	box-sizing: border-box;
+	overflow: hidden;
+}
