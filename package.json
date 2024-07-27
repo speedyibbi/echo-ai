@@ -1,0 +1,33 @@
+{
+	"name": "echo-ai",
+	"version": "1.0.0",
+	"description": "AI Chatbot",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "npx tsc",
+		"start": "npm run build && node dist/index.js",
+		"dev": "nodemon src/index.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/speedyibbi/echo-ai.git"
+	},
+	"author": "speedyibbi",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/speedyibbi/echo-ai/issues"
+	},
+	"homepage": "https://github.com/speedyibbi/echo-ai#readme",
+	"devDependencies": {
+		"@swc/core": "^1.7.1",
+		"@types/koa": "^2.15.0",
+		"nodemon": "^3.1.4",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"koa": "^2.15.3",
+		"socket.io": "^4.7.5"
+	}
+}
