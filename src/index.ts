@@ -5,7 +5,11 @@ import serve from 'koa-static';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 import { join } from 'path';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import {
+	GoogleGenerativeAI,
+	HarmBlockThreshold,
+	HarmCategory,
+} from '@google/generative-ai';
 
 const app = new Koa();
 const server = createServer(app.callback());
@@ -14,7 +18,27 @@ const io = new Server(server);
 app.use(serve(join(__dirname, 'public')));
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY || '');
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const model = genAI.getGenerativeModel({
+	model: 'gemini-1.5-flash',
+	safetySettings: [
+		{
+			category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+			threshold: HarmBlockThreshold.BLOCK_NONE,
+		},
+		{
+			category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+			threshold: HarmBlockThreshold.BLOCK_NONE,
+		},
+		{
+			category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+			threshold: HarmBlockThreshold.BLOCK_NONE,
+		},
+		{
+			category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+			threshold: HarmBlockThreshold.BLOCK_NONE,
+		},
+	],
+});
 
 app.use(async (ctx) => {
 	if (ctx.path === '/' && ctx.method === 'GET') {
@@ -26,11 +50,28 @@ io.on('connection', (socket) => {
 	try {
 		console.log('A user connected');
 
-		socket.on('message', async (msg) => {
+		const history: { role: string; parts: { text: string }[] }[] = [];
+
+		socket.on('message', async (msg: string) => {
 			try {
-				const result = await model.generateContent(msg);
-				socket.emit('message', result.response.text());
-			} catch (_err) {
+				const chat = model.startChat({ history });
+				const result = await chat.sendMessage(msg);
+				const response = result.response.text();
+
+				socket.emit('message', response);
+
+				history.push(
+					{
+						role: 'user',
+						parts: [{ text: msg }],
+					},
+					{
+						role: 'model',
+						parts: [{ text: response }],
+					}
+				);
+			} catch (err) {
+				console.error(err);
 				socket.emit('error', 'Something went wrong');
 			}
 		});
