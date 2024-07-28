@@ -14,8 +14,12 @@
 		<title>Echo AI - Chatbot</title>
 	</head>
 	<body>
+		<header>
+			<h1>E<span>CHO</span> AI</h1>
+		</header>
 		<main>
 			<div class="messages-container"></div>
+			<span class="fade-cover"></span>
 			<form>
 				<textarea
 					name="message"
@@ -26,6 +30,56 @@
 				></textarea>
 			</form>
 		</main>
+		<span class="background-cover"></span>
+		<svg viewBox="0 0 1920 1080" fill="none" class="svg-cover">
+			<mask
+				id="mask"
+				style="mask-type: luminance"
+				maskUnits="userSpaceOnUse"
+				x="-444"
+				y="-262"
+				width="2807"
+				height="1604"
+			>
+				<path d="M2362.24 -262H-444V1341.57H2362.24V-262Z" />
+			</mask>
+			<g mask="url(#mask)">
+				<path
+					d="M2574.92 1551.77H-656.682V-472.203H2574.92L2574.92 1551.77ZM-652.505 1547.6H2570.75V-468.027H-652.505V1547.6Z"
+				/>
+				<path d="M2572.84 1042.65H-654.594V1046.82H2572.84V1042.65Z" />
+				<path d="M2572.84 941.655H-654.594V945.831H2572.84V941.655Z" />
+				<path d="M2572.84 840.665H-654.594V844.841H2572.84V840.665Z" />
+				<path d="M2572.84 739.676H-654.594V743.852H2572.84V739.676Z" />
+				<path d="M2572.84 638.686H-654.594V642.862H2572.84V638.686Z" />
+				<path d="M2572.84 537.696H-654.594V541.872H2572.84V537.696Z" />
+				<path d="M2572.84 436.707H-654.594V440.883H2572.84V436.707Z" />
+				<path d="M2572.84 335.715H-654.594V339.891H2572.84V335.715Z" />
+				<path d="M2572.84 234.725H-654.594V238.901H2572.84V234.725Z" />
+				<path d="M2572.84 133.735H-654.594V137.911H2572.84V133.735Z" />
+				<path d="M2572.84 32.746H-654.594V36.922H2572.84V32.746Z" />
+				<path d="M1890.32 -470.115H1886.14V1549.68H1890.32V-470.115Z" />
+				<path d="M1792.52 -470.115H1788.34V1549.68H1792.52V-470.115Z" />
+				<path d="M1694.72 -470.115H1690.54V1549.68H1694.72V-470.115Z" />
+				<path d="M1596.92 -470.115H1592.74V1549.68H1596.92V-470.115Z" />
+				<path d="M1499.12 -470.115H1494.94V1549.68H1499.12V-470.115Z" />
+				<path d="M1401.31 -470.115H1397.14V1549.68H1401.31V-470.115Z" />
+				<path d="M1303.51 -470.115H1299.34V1549.68H1303.51V-470.115Z" />
+				<path d="M1205.71 -470.115H1201.53V1549.68H1205.71V-470.115Z" />
+				<path d="M1107.91 -470.115H1103.73V1549.68H1107.91V-470.115Z" />
+				<path d="M1010.11 -470.115H1005.93V1549.68H1010.11V-470.115Z" />
+				<path d="M912.309 -470.115H908.133V1549.68H912.309V-470.115Z" />
+				<path d="M814.509 -470.115H810.333V1549.68H814.509V-470.115Z" />
+				<path d="M716.708 -470.115H712.532V1549.68H716.708V-470.115Z" />
+				<path d="M618.907 -470.115H614.731V1549.68H618.907V-470.115Z" />
+				<path d="M521.104 -470.115H516.928V1549.68H521.104V-470.115Z" />
+				<path d="M423.303 -470.115H419.127V1549.68H423.303V-470.115Z" />
+				<path d="M325.503 -470.115H321.327V1549.68H325.503V-470.115Z" />
+				<path d="M227.703 -470.115H223.527V1549.68H227.703V-470.115Z" />
+				<path d="M129.902 -470.115H125.726V1549.68H129.902V-470.115Z" />
+				<path d="M32.101 -470.115H27.925V1549.68H32.101V-470.115Z" />
+			</g>
+		</svg>
 	</body>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -44,16 +98,22 @@
 
 		function addMessage(msg, isUser = false, error = false) {
 			const p = document.createElement('p');
-			p.style =
-				'align-self: ' +
-				(isUser ? 'end' : '') +
-				'; background-color: ' +
-				(error ? 'var(--danger)' : '') +
-				'; color: ' +
-				(error ? 'var(--foreground)' : '');
+
+			if (isUser) {
+				p.style.alignSelf = 'end';
+			}
+
+			if (error) {
+				p.style.background = 'var(--danger)';
+			}
+
 			p.textContent = msg;
 			messages.appendChild(p);
-			window.scrollTo(0, textarea.offsetTop + textarea.offsetHeight);
+
+			window.scrollTo(
+				0,
+				messages.children[messages.children.length - 1].offsetTop
+			);
 		}
 
 		form.addEventListener('submit', (e) => {
