@@ -38,9 +38,19 @@
 			addMessage(msg);
 		});
 
-		function addMessage(msg, isUser = false) {
+		socket.on('error', (msg) => {
+			addMessage(msg, false, true);
+		});
+
+		function addMessage(msg, isUser = false, error = false) {
 			const p = document.createElement('p');
-			p.style = 'align-self: ' + (isUser ? 'end' : 'start');
+			p.style =
+				'align-self: ' +
+				(isUser ? 'end' : '') +
+				'; background-color: ' +
+				(error ? 'var(--danger)' : '') +
+				'; color: ' +
+				(error ? 'var(--foreground)' : '');
 			p.textContent = msg;
 			messages.appendChild(p);
 			window.scrollTo(0, textarea.offsetTop + textarea.offsetHeight);

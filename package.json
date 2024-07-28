@@ -29,6 +29,7 @@
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
+		"@google/generative-ai": "^0.16.0",
 		"dotenv": "^16.4.5",
 		"koa": "^2.15.3",
 		"koa-static": "^5.0.0",

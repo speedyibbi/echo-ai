@@ -3,6 +3,7 @@
 	--background: #fff;
 	--accent: #2f88ff;
 	--muted: #000000bf;
+	--danger: #ff4040;
 }
 
 @media (prefers-color-scheme: dark) {
