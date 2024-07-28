@@ -23,6 +23,7 @@ io.on('connection', (socket) => {
 
 	socket.on('message', (msg) => {
 		console.log('Message received: ' + msg);
+		socket.emit('message', "Hello, I'm Echo.");
 	});
 
 	socket.on('disconnect', () => {

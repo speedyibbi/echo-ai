@@ -32,10 +32,24 @@
 		const socket = io();
 		const form = document.querySelector('form');
 		const textarea = document.querySelector('textarea');
+		const messages = document.querySelector('.messages-container');
+
+		socket.on('message', (msg) => {
+			addMessage(msg);
+		});
+
+		function addMessage(msg, isUser = false) {
+			const p = document.createElement('p');
+			p.style = 'align-self: ' + (isUser ? 'end' : 'start');
+			p.textContent = msg;
+			messages.appendChild(p);
+			window.scrollTo(0, textarea.offsetTop + textarea.offsetHeight);
+		}
 
 		form.addEventListener('submit', (e) => {
 			e.preventDefault();
 
+			addMessage(textarea.value, true);
 			socket.emit('message', textarea.value);
 
 			form.reset();
@@ -44,7 +58,9 @@
 		textarea.addEventListener('keypress', (e) => {
 			if (e.key === 'Enter' && !e.shiftKey) {
 				e.preventDefault();
-				form.dispatchEvent(new Event('submit'));
+				if (textarea.value.length > 0) {
+					form.dispatchEvent(new Event('submit'));
+				}
 			}
 		});
 	</script>

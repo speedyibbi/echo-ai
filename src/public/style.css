@@ -61,7 +61,29 @@ main {
 }
 
 .messages-container {
+	padding: 0 5%;
 	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	place-content: start;
+	place-items: stretch;
+	gap: 15px;
+}
+
+.messages-container p {
+	width: fit-content;
+	max-width: 45%;
+	padding: 15px 20px;
+	color: var(--background);
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	letter-spacing: -0.05em;
+	border-radius: 20px;
+	background-color: var(--foreground);
+	text-wrap: wrap;
+	word-break: normal;
+	overflow: hidden;
 }
 
 form {
@@ -81,7 +103,7 @@ textarea {
 	font-weight: 500;
 	letter-spacing: -0.05em;
 	border: 2px solid var(--foreground);
-	border-radius: 8px;
+	border-radius: 9999px;
 	background-color: transparent;
 	outline: none;
 	resize: none;
