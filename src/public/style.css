@@ -66,20 +66,18 @@ h1 {
 	color: var(--special-foreground);
 	text-align: center;
 	font-size: 26px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 700;
+	font-family: 'Comfortaa', sans-serif;
+	font-weight: 300;
 	letter-spacing: -0.05em;
 	transition: filter 0.15s ease-in-out;
 	cursor: default;
+	font-variant: small-caps;
+	filter: drop-shadow(0 0 0.05rem var(--special-foreground));
 }
 
 h1:hover {
-	filter: drop-shadow(0 0 1px var(--special-foreground));
-}
-
-h1 span {
-	font-size: 20px;
-	font-weight: 800;
+	filter: drop-shadow(0 0 0.05rem var(--special-foreground))
+		drop-shadow(0 0 0.05rem var(--special-foreground));
 }
 
 main {
