@@ -112,6 +112,16 @@ main {
 	background: var(--accent-background);
 	filter: var(--drop-shadow);
 	overflow: hidden;
+	animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .messages-container .message.user {

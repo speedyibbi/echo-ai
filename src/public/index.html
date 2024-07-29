@@ -129,11 +129,13 @@
 
 		function toggleLoader(on = true) {
 			if (on) {
-				loader = addMessage(
-					`<span class="message-loader"></span>`,
-					false,
-					false
-				);
+				setTimeout(() => {
+					loader = addMessage(
+						`<span class="message-loader"></span>`,
+						false,
+						false
+					);
+				}, 150);
 			} else {
 				loader.remove();
 			}
