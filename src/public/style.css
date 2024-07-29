@@ -54,15 +54,34 @@ body {
 
 header {
 	padding: 50px;
+	display: flex;
+	place-content: center;
+	place-items: center;
+	gap: 15px;
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1150px) {
 	header {
 		position: fixed;
+		place-content: start;
 	}
 }
 
-h1 {
+header .logo {
+	height: 39px;
+	animation: hover 3s ease-in-out infinite alternate;
+}
+
+@keyframes hover {
+	from {
+		transform: translateY(10%);
+	}
+	to {
+		transform: translateY(-10%);
+	}
+}
+
+header h1 {
 	color: var(--special-foreground);
 	text-align: center;
 	font-size: 26px;
@@ -75,7 +94,7 @@ h1 {
 	filter: drop-shadow(0 0 0.05rem var(--special-foreground));
 }
 
-h1:hover {
+header h1:hover {
 	filter: drop-shadow(0 0 0.05rem var(--special-foreground))
 		drop-shadow(0 0 0.05rem var(--special-foreground));
 }
@@ -87,7 +106,7 @@ main {
 	position: relative;
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 1150px) {
 	main {
 		min-height: 100%;
 		padding: 10vh 0 calc(2.5vh + 72px) 0;
