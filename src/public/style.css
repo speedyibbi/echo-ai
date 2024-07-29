@@ -208,11 +208,133 @@ textarea::placeholder {
 }
 
 .background-cover,
-.svg-cover {
+.svg-cover,
+.page-loader-cover {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: -1;
+}
+
+.page-loader-cover {
+	display: flex;
+	place-content: center;
+	place-items: center;
+	background: var(--background);
+	animation: fadeOut 0.15s 1.65s linear 1 forwards;
+	z-index: 100;
+}
+
+.page-loader {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(
+		165deg,
+		hsl(226, 97%, 64%) 0%,
+		hsl(226, 97%, 60%) 40%,
+		hsl(226, 97%, 41%) 98%,
+		rgb(10, 10, 10) 100%
+	);
+	border-radius: 50%;
+	position: relative;
+	animation: fadeOut 0.15s 1.5s linear 1 forwards;
+}
+
+.page-loader:before {
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	border-bottom: 0 solid #ffffff05;
+	box-shadow: 0 -10px 20px 20px #4973fc40 inset,
+		0 -5px 15px 10px #4973fc50 inset, 0 -2px 5px #4973fc80 inset,
+		0 -3px 2px #4973fcbb inset, 0 2px 0px #4973fc, 0 2px 3px #4973fc,
+		0 5px 5px #4973fc90, 0 10px 15px #4973fc60, 0 10px 20px 20px #4973fc40;
+	filter: blur(3px);
+	animation: 2s rotate linear infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+	.page-loader {
+		background: linear-gradient(
+			165deg,
+			rgba(255, 255, 255, 1) 0%,
+			rgb(220, 220, 220) 40%,
+			rgb(170, 170, 170) 98%,
+			rgb(10, 10, 10) 100%
+		);
+	}
+
+	.page-loader:before {
+		box-shadow: 0 -10px 20px 20px #ffffff40 inset,
+			0 -5px 15px 10px #ffffff50 inset, 0 -2px 5px #ffffff80 inset,
+			0 -3px 2px #ffffffbb inset, 0 2px 0px #ffffff, 0 2px 3px #ffffff,
+			0 5px 5px #ffffff90, 0 10px 15px #ffffff60, 0 10px 20px 20px #ffffff40;
+	}
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		pointer-events: initial;
+		opacity: 1;
+	}
+	to {
+		pointer-events: none;
+		opacity: 0;
+	}
+}
+
+.message-loader {
+	width: 16px;
+	height: 16px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	position: relative;
+	animation: pulse 1s linear infinite;
+}
+
+.message-loader:after {
+	content: '';
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	animation: scaleUp 1s linear infinite;
+}
+
+@keyframes scaleUp {
+	0% {
+		transform: translate(-50%, -50%) scale(0);
+	}
+	60%,
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+@keyframes pulse {
+	0%,
+	60%,
+	100% {
+		transform: scale(1);
+	}
+	80% {
+		transform: scale(1.2);
+	}
 }

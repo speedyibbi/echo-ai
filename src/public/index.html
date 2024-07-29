@@ -80,6 +80,9 @@
 				<path d="M32.101 -470.115H27.925V1549.68H32.101V-470.115Z" />
 			</g>
 		</svg>
+		<span class="page-loader-cover">
+			<span class="page-loader"></span>
+		</span>
 	</body>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -89,12 +92,16 @@
 		const textarea = document.querySelector('textarea');
 		const messages = document.querySelector('.messages-container');
 
+		let loader;
+
 		socket.on('message', (msg) => {
 			addMessage(msg);
+			toggleLoader(false);
 		});
 
 		socket.on('error', (msg) => {
 			addMessage(msg, false, true);
+			toggleLoader(false);
 		});
 
 		function addMessage(msg, isUser = false, error = false) {
@@ -116,6 +123,20 @@
 				0,
 				messages.children[messages.children.length - 1].offsetTop
 			);
+
+			return message;
+		}
+
+		function toggleLoader(on = true) {
+			if (on) {
+				loader = addMessage(
+					`<span class="message-loader"></span>`,
+					false,
+					false
+				);
+			} else {
+				loader.remove();
+			}
 		}
 
 		form.addEventListener('submit', (e) => {
@@ -123,6 +144,7 @@
 
 			addMessage(textarea.value, true);
 			socket.emit('message', textarea.value);
+			toggleLoader();
 
 			form.reset();
 		});
