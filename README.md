@@ -1,4 +1,4 @@
-# <img src='src/public/favicon.svg' /> Echo AI
+# <img height='30px' src='src/public/favicon.svg' /> Echo AI
 
 Echo AI is a chatbot designed to have human-like conversations with its users. Echo AI serves as a stepping stone for more complex and specific AI chatbot use-cases, making it an ideal starting point for developers and researchers interested in building advanced conversational agents.
 
