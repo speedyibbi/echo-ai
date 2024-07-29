@@ -3,7 +3,7 @@
 	--special-foreground: #101011;
 	--background: linear-gradient(180deg, #ffffff 0%, #c4c4c4 100%);
 	--muted: #ffffff80;
-	--muted-background: #404044;
+	--muted-background: #40404480;
 	--accent: #003bfc;
 	--accent-background: linear-gradient(180deg, #4973fc 0%, #003bfc 100%);
 	--danger: linear-gradient(180deg, #ff4040 0%, #b30000 100%);
@@ -16,7 +16,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--special-foreground: #ffffff;
-		--muted-background: #1b1b1c;
+		--muted-background: #1b1b1c80;
 		--background: linear-gradient(180deg, #242426 0%, #101011 100%);
 		--grid-lines: #1a1a1a;
 	}
@@ -181,6 +181,7 @@ textarea {
 	border-radius: 9999px;
 	background-color: var(--muted-background);
 	box-shadow: var(--box-shadow);
+	backdrop-filter: blur(25px);
 	transform: translateX(-50%);
 	outline: none;
 	resize: none;
