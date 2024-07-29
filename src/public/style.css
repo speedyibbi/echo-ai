@@ -69,6 +69,12 @@ h1 {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	letter-spacing: -0.05em;
+	transition: filter 0.15s ease-in-out;
+	cursor: default;
+}
+
+h1:hover {
+	filter: drop-shadow(0 0 1px var(--special-foreground));
 }
 
 h1 span {
