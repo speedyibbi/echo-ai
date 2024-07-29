@@ -99,7 +99,7 @@ main {
 	gap: 25px;
 }
 
-.messages-container p {
+.messages-container .message {
 	width: fit-content;
 	max-width: 75%;
 	padding: 10px 15px;
@@ -111,9 +111,44 @@ main {
 	border-radius: 15px;
 	background: var(--accent-background);
 	filter: var(--drop-shadow);
-	text-wrap: wrap;
-	word-break: normal;
 	overflow: hidden;
+}
+
+.messages-container .message * {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+.messages-container .message p {
+	margin: 0 0 10px 0;
+}
+
+.messages-container .message p:last-child {
+	margin-bottom: 0;
+}
+
+.messages-container .message pre,
+.messages-container .message code {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.messages-container .message ul,
+.messages-container .message ol {
+	padding-left: 20px;
+	margin: 0;
+}
+
+.messages-container .message a {
+	color: #aeb9cc;
+}
+
+.messages-container .message img {
+	width: 100%;
+	border-radius: 7px;
 }
 
 form {

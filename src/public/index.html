@@ -82,6 +82,7 @@
 		</svg>
 	</body>
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script>
 		const socket = io();
 		const form = document.querySelector('form');
@@ -97,18 +98,19 @@
 		});
 
 		function addMessage(msg, isUser = false, error = false) {
-			const p = document.createElement('p');
+			const message = document.createElement('div');
+			message.classList.add('message');
 
 			if (isUser) {
-				p.style.alignSelf = 'end';
+				message.style.alignSelf = 'end';
 			}
 
 			if (error) {
-				p.style.background = 'var(--danger)';
+				message.style.background = 'var(--danger)';
 			}
 
-			p.textContent = msg;
-			messages.appendChild(p);
+			message.innerHTML = marked.parse(msg);
+			messages.appendChild(message);
 
 			window.scrollTo(
 				0,
