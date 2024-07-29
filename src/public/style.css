@@ -6,7 +6,7 @@
 	--muted-background: #404044;
 	--accent: #003bfc;
 	--accent-background: linear-gradient(180deg, #4973fc 0%, #003bfc 100%);
-	--danger: #ff4040;
+	--danger: linear-gradient(180deg, #ff4040 0%, #b30000 100%);
 	--box-shadow: 7px 7px 50px rgba(0, 0, 0, 0.25);
 	--drop-shadow: drop-shadow(7px 7px 10px rgba(0, 0, 0, 0.25));
 	--grid-background: #ffffff;
@@ -112,6 +112,14 @@ main {
 	background: var(--accent-background);
 	filter: var(--drop-shadow);
 	overflow: hidden;
+}
+
+.messages-container .message.user {
+	align-self: flex-end;
+}
+
+.messages-container .message.error {
+	background: var(--danger);
 }
 
 .messages-container .message * {
