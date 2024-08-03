@@ -22,7 +22,7 @@ Echo AI is a chatbot designed to have human-like conversations with its users. E
 To set up and run Echo AI, follow these steps:
 
 1. Clone the repository:
-   `bash git clone https://github.com/speedyibbi/echo-ai.git`
+   `git clone https://github.com/speedyibbi/echo-ai.git`
    `cd echo-ai`
 
 2. Install dependencies: `npm install`
