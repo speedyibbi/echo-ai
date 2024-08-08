@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import Koa from 'koa';
 import serve from 'koa-static';
+import cors from '@koa/cors';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 import { join } from 'path';
@@ -10,7 +11,7 @@ import {
 	HarmBlockThreshold,
 	HarmCategory,
 } from '@google/generative-ai';
-import cors from '@koa/cors';
+import serverless from 'serverless-http';
 
 const app = new Koa();
 const server = createServer(app.callback());
@@ -91,3 +92,7 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`);
 });
+
+const handler = serverless(app);
+
+export default handler;
