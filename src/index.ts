@@ -93,6 +93,4 @@ server.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`);
 });
 
-const handler = serverless(app);
-
-export default handler;
+export const handler = serverless(app);
