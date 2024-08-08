@@ -4,10 +4,10 @@
 	"description": "AI Chatbot",
 	"main": "dist/index.js",
 	"scripts": {
-		"post-build": "copyfiles -u 1 src/public/*.html src/public/*.css src/public/favicon.svg dist",
-		"build": "npx tsc && npm run post-build",
+		"dev": "nodemon src/index.ts",
 		"start": "npm run build && node dist/index.js",
-		"dev": "nodemon src/index.ts"
+		"build": "npx tsc && npm run post-build",
+		"post-build": "copyfiles -u 1 src/public/*.html src/public/*.css src/public/favicon.svg dist"
 	},
 	"repository": {
 		"type": "git",
@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@swc/core": "^1.7.1",
 		"@types/koa": "^2.15.0",
+		"@types/koa__cors": "^5.0.0",
 		"@types/koa-static": "^4.0.4",
 		"copyfiles": "^2.4.1",
 		"nodemon": "^3.1.4",
@@ -30,6 +31,7 @@
 	},
 	"dependencies": {
 		"@google/generative-ai": "^0.16.0",
+		"@koa/cors": "^5.0.0",
 		"dotenv": "^16.4.5",
 		"koa": "^2.15.3",
 		"koa-static": "^5.0.0",

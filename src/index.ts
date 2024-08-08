@@ -10,11 +10,13 @@ import {
 	HarmBlockThreshold,
 	HarmCategory,
 } from '@google/generative-ai';
+import cors from '@koa/cors';
 
 const app = new Koa();
 const server = createServer(app.callback());
 const io = new Server(server);
 
+app.use(cors());
 app.use(serve(join(__dirname, 'public')));
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY || '');
