@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import Koa from 'koa';
 import serve from 'koa-static';
-import { Server } from 'socket.io';
+import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
 import { join } from 'path';
 import {
@@ -14,7 +14,7 @@ import cors from '@koa/cors';
 
 const app = new Koa();
 const server = createServer(app.callback());
-const io = new Server(server);
+const wss = new WebSocketServer({ server });
 
 app.use(cors());
 app.use(serve(join(__dirname, 'public')));
@@ -48,19 +48,20 @@ app.use(async (ctx) => {
 	}
 });
 
-io.on('connection', (socket) => {
+wss.on('connection', (ws) => {
 	try {
 		console.log('A user connected');
 
 		const history: { role: string; parts: { text: string }[] }[] = [];
 
-		socket.on('message', async (msg: string) => {
+		ws.on('message', async (message: string) => {
 			try {
+				const msg = message.toString();
 				const chat = model.startChat({ history });
 				const result = await chat.sendMessage(msg);
 				const response = result.response.text();
 
-				socket.emit('message', response);
+				ws.send(JSON.stringify({ type: 'message', data: response }));
 
 				history.push(
 					{
@@ -74,11 +75,13 @@ io.on('connection', (socket) => {
 				);
 			} catch (err) {
 				console.error(err);
-				socket.emit('error', 'Something went wrong');
+				ws.send(
+					JSON.stringify({ type: 'error', data: 'Something went wrong' })
+				);
 			}
 		});
 
-		socket.on('disconnect', () => {
+		ws.on('close', () => {
 			console.log('A user disconnected');
 		});
 	} catch (err) {

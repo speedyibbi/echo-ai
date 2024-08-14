@@ -89,25 +89,29 @@
 			<span class="page-loader"></span>
 		</span>
 	</body>
-	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<script>
-		const socket = io();
+		const socket = new WebSocket('ws://' + location.host);
 		const form = document.querySelector('form');
 		const textarea = document.querySelector('textarea');
 		const messages = document.querySelector('.messages-container');
 
 		let loader;
 
-		socket.on('message', (msg) => {
-			addMessage(msg);
+		socket.onmessage = function (event) {
+			const data = JSON.parse(event.data);
+			if (data.type === 'message') {
+				addMessage(data.data);
+			} else if (data.type === 'error') {
+				addMessage(data.data, false, true);
+			}
 			toggleLoader(false);
-		});
+		};
 
-		socket.on('error', (msg) => {
-			addMessage(msg, false, true);
-			toggleLoader(false);
-		});
+		socket.onerror = function (error) {
+			console.error('WebSocket Error: ', error);
+			addMessage('Error: Could not connect to the server', false, true);
+		};
 
 		function addMessage(msg, isUser = false, error = false) {
 			const message = document.createElement('div');
@@ -142,7 +146,9 @@
 					);
 				}, 150);
 			} else {
-				loader.remove();
+				if (loader) {
+					loader.remove();
+				}
 			}
 		}
 
@@ -150,7 +156,7 @@
 			e.preventDefault();
 
 			addMessage(textarea.value, true);
-			socket.emit('message', textarea.value);
+			socket.send(textarea.value);
 			toggleLoader();
 
 			form.reset();
