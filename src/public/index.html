@@ -110,7 +110,7 @@
 
 		socket.onerror = function (error) {
 			console.error('WebSocket Error: ', error);
-			addMessage('Error: Could not connect to the server', false, true);
+			toggleLoader(false);
 		};
 
 		function addMessage(msg, isUser = false, error = false) {
